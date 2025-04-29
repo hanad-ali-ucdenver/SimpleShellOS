@@ -1,0 +1,57 @@
+
+✅ 1. Problem Definition (20 pts)
+What to include:
+
+A clear problem statement: 
+"To design and implement a simple shell that can create, manage, and terminate processes using system calls in Linux (or Windows)."
+
+Relevance: Discuss how process management is a core concept in operating systems and how this shell demonstrates those principles.
+
+✅ 2. Algorithm Implementation (40 pts)
+What evaluators look for:
+
+Well-structured and commented code.
+
+Proper use of fork(), exec(), and wait() .
+
+Handling edge cases (e.g., what if exec fails? What if the user types an invalid command?).
+
+Support for built-in commands like exit, cd, etc., can also earn bonus points.
+
+✅ 3. Simulation and Visualization (40 pts)
+This might not be as straightforward for a shell, but here's what you could do:
+
+Logging: Show each process's lifecycle (creation, execution, termination) in a log or terminal output.
+
+Text-based timeline or table: Simulate a Gantt-like view of processes started, their PIDs, and status updates.
+
+Optional: Use ASCII art or a simple Python/JavaScript GUI to visualize process states.
+
+✅ 4. Analysis of Results (40 pts)
+Discuss:
+
+How efficiently your shell creates and terminates processes.
+
+Metrics like time taken to execute processes (simple timing).
+
+Any race conditions or zombie process handling.
+
+Compare with how a full shell like bash might handle similar tasks.
+
+✅ 5. Recent Research Component (40 pts)
+Suggested additions:
+
+Include a section on modern research or developments in process management (e.g., containerization using namespaces and cgroups in Linux).
+
+Discuss advancements in shell design (like job control, modern shell scripting improvements, or concurrency models).
+
+Cite 1-2 recent academic or industry sources.
+
+✅ 6. Presentation and Documentation (20 pts)
+Include:
+
+A well-structured report or README.
+
+Code comments and usage instructions.
+
+Proper formatting, grammar, and visual elements in your report.

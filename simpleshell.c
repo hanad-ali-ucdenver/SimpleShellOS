@@ -12,6 +12,8 @@
  * @param command The command string to parse
  * @param args Array where parsed arguments will be stored
  */
+
+ 
 void parse_command(char *command, char **args) {
     char *token;
     int i = 0;
@@ -36,17 +38,23 @@ int execute_builtin(char **args) {
     }
     
     // Built-in Exit command to terminate shell
-    if (strcmp(args[0], "exit") == 0) {
+    if (strcmp(args[0], "exit") == 0) // compare two strings, if its same return 0
+    {
         return 0;
     }
     
     // Built in CD command to change current directory
-    if (strcmp(args[0], "cd") == 0) {
+    if (strcmp(args[0], "cd") == 0) 
+    {
         // if no directory specified, print error
-        if (args[1] == NULL) {
+        if (args[1] == NULL) 
+        {
             fprintf(stderr, "Expected argument to \"cd\"\n");
-        } else {
-            if (chdir(args[1]) != 0) {
+        } 
+        else 
+        {
+            if (chdir(args[1]) != 0) //chdir() changes the directory to args[1] and retuns 0 if successful or -1
+            {
                 perror("cd failed");
             }
         }
@@ -60,26 +68,34 @@ int execute_builtin(char **args) {
  * Execute an external command using fork, exec, and wait
  * @param args Array of command arguments
  */
-void execute_command(char **args) {
+void execute_command(char **args) 
+{
     pid_t pid; // Process ID
     int status;
     
     // Create a new process using fork
     pid = fork();
-    if (pid == 0) {
+    if (pid == 0) 
+    {
         // Child process
-        // Replace child process with the commands specified by args
-        if (execvp(args[0], args) == -1) {
+        // Replace child process with the commands specified by args. if it fails then it retuns -1 or it does not return anything
+        if (execvp(args[0], args) == -1)
+        {
             perror("Command execution failed"); //if exec fails, print error
             exit(EXIT_FAILURE);
         }
-    } else if (pid < 0) {
+    } 
+    else if (pid < 0) 
+    {
         // Fork failed
         perror("Fork failed");
-    } else {
+    } 
+    else 
+    {
         // Parent process
         // Wait for the child process to terminate
-        do {
+        do 
+        {
             waitpid(pid, &status, WUNTRACED); // command that tells parent to wait until child is stopped
         } while (!WIFEXITED(status) && !WIFSIGNALED(status));
     }
@@ -88,17 +104,20 @@ void execute_command(char **args) {
 /**
  * Main function - implements the shell's command loop
  */
-int main() {
+int main() 
+{
     char input[MAX_INPUT_SIZE]; // Buffer for command input
     char *args[MAX_ARGS]; // Array to store command arguments
     int status = 1; // Shell status (1=continue, 0=exit)
     
     // main loop
-    while (status) {
+    while (status) 
+    {
         printf("> ");  // Display prompt
         
         // Read input
-        if (!fgets(input, MAX_INPUT_SIZE, stdin)) {
+        if (!fgets(input, MAX_INPUT_SIZE, stdin)) 
+        {
             break;
         }
         
@@ -107,9 +126,12 @@ int main() {
         
         // Execute command
         int result = execute_builtin(args);
-        if (result == 0) {
+        if (result == 0) 
+        {
             break;  // Exit shell
-        } else if (result < 0) { // if result is less than zero, command is not a built-in command, execute as external
+        } 
+        else if (result < 0) 
+        { // if result is less than zero, command is not a built-in command, execute as external
             execute_command(args);  
         }
     }
